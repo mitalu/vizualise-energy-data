@@ -268,20 +268,6 @@ elif gran == "Year":
 
     st.altair_chart(chart, use_container_width=True)
 
-    # Build a table with proper month labels
-    table_out = year_view[["month", "monthly"]].copy()
-    table_out["month_label"] = table_out["month"].apply(lambda m: pd.Timestamp(sel_year, m, 1).strftime("%B"))
-    table_out = table_out[["month_label", "monthly"]].rename(columns={"month_label": "month", "monthly": unit_label})
-    with st.expander("Show monthly table"):
-        st.dataframe(table_out.set_index("month"))
-
-    st.download_button(
-        "⬇️ Download (CSV)",
-        table_out.to_csv(index=False).encode("utf-8"),
-        file_name=f"monthly_{sel_year}.csv",
-        mime="text/csv",
-    )
-
 # ---------------------------
 # Years → Yearly bars for all available years
 # ---------------------------
